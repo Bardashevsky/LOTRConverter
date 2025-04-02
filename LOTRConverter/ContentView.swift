@@ -11,13 +11,13 @@ import TipKit
 struct ContentView: View {
     @State var showExchangeInfo: Bool = false
     @State var showSelectCurrency: Bool = false
-    @State var leftAmount = ""
-    @State var rightAmount = "0"
+    @State var leftAmount = CurrencyDatabase.leftCurrencyAmount
+    @State var rightAmount: String = ""
 
     @FocusState var leftTyping
 
-    @State var leftCurrency: Currency = .copperPenny
-    @State var rightCurrency: Currency = .copperPenny
+    @State var leftCurrency = Currency(rawValue: CurrencyDatabase.leftCurrency) ?? .copperPenny
+    @State var rightCurrency = Currency(rawValue: CurrencyDatabase.rightCurrency) ?? .copperPenny
 
     var body: some View {
         ZStack {
@@ -79,18 +79,30 @@ struct ContentView: View {
             if leftTyping {
                 rightAmount = leftCurrency
                     .convert(leftAmount, to: rightCurrency)
+
+                CurrencyDatabase.leftCurrencyAmount = leftAmount
             }
         }
         .onChange(of: leftCurrency) {
             rightAmount = leftCurrency
                 .convert(leftAmount, to: rightCurrency)
+
+            CurrencyDatabase.leftCurrency = leftCurrency.rawValue
         }
         .onChange(of: rightCurrency) {
             rightAmount = leftCurrency
                 .convert(leftAmount, to: rightCurrency)
+
+            CurrencyDatabase.rightCurrency = rightCurrency.rawValue
         }
         .sheet(isPresented: $showExchangeInfo) {
             ExchangeInfoView()
+        }
+        .onTapGesture {
+            leftTyping = false
+        }
+        .onAppear {
+            rightAmount = leftCurrency.convert(leftAmount, to: rightCurrency)
         }
     }
 }
