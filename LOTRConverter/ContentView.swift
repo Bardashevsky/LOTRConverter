@@ -9,15 +9,10 @@ import SwiftUI
 import TipKit
 
 struct ContentView: View {
-    @State var showExchangeInfo: Bool = false
-    @State var showSelectCurrency: Bool = false
-    @State var leftAmount = CurrencyDatabase.leftCurrencyAmount
-    @State var rightAmount: String = ""
+    @StateObject private var viewModel = CurrencyViewModel()
 
-    @FocusState var leftTyping
-
-    @State var leftCurrency = Currency(rawValue: CurrencyDatabase.leftCurrency) ?? .copperPenny
-    @State var rightCurrency = Currency(rawValue: CurrencyDatabase.rightCurrency) ?? .copperPenny
+    @FocusState private var leftTyping
+    @State private var showExchangeInfo = false
 
     var body: some View {
         ZStack {
@@ -36,19 +31,36 @@ struct ContentView: View {
                     .foregroundStyle(.white)
 
                 HStack {
-                    CurrentCurrencyView(isDisabled: false, currency: $leftCurrency,
-                                  amount: $leftAmount)
+                    CurrentCurrencyView(
+                        isDisabled: false,
+                        currency: $viewModel.leftCurrency,
+                        amount: $viewModel.leftAmount
+                    )
                     .focused($leftTyping)
+                    .onChange(of: viewModel.leftAmount) {
+                        if leftTyping {
+                            viewModel.updateLeftAmount(viewModel.leftAmount)
+                        }
+                    }
+                    .onChange(of: viewModel.leftCurrency) {
+                        viewModel.updateLeftCurrency(viewModel.leftCurrency)
+                    }
 
                     Spacer()
+
                     Image(systemName: "equal")
                         .font(.largeTitle)
                         .foregroundStyle(.white)
                         .symbolEffect(.pulse)
 
-                    CurrentCurrencyView(isDisabled: true,
-                                  currency: $rightCurrency,
-                                  amount: $rightAmount)
+                    CurrentCurrencyView(
+                        isDisabled: true,
+                        currency: $viewModel.rightCurrency,
+                        amount: $viewModel.rightAmount
+                    )
+                    .onChange(of: viewModel.rightCurrency) {
+                        viewModel.updateRightCurrency(viewModel.rightCurrency)
+                    }
                 }
                 .padding(40)
                 .background(Color.black.opacity(0.4))
@@ -60,7 +72,6 @@ struct ContentView: View {
 
                 HStack {
                     Spacer()
-
                     Button {
                         showExchangeInfo.toggle()
                     } label: {
@@ -72,37 +83,14 @@ struct ContentView: View {
                 }
             }
         }
-        .task {
-            try? Tips.configure()
-        }
-        .onChange(of: leftAmount) {
-            if leftTyping {
-                rightAmount = leftCurrency
-                    .convert(leftAmount, to: rightCurrency)
-
-                CurrencyDatabase.leftCurrencyAmount = leftAmount
-            }
-        }
-        .onChange(of: leftCurrency) {
-            rightAmount = leftCurrency
-                .convert(leftAmount, to: rightCurrency)
-
-            CurrencyDatabase.leftCurrency = leftCurrency.rawValue
-        }
-        .onChange(of: rightCurrency) {
-            rightAmount = leftCurrency
-                .convert(leftAmount, to: rightCurrency)
-
-            CurrencyDatabase.rightCurrency = rightCurrency.rawValue
-        }
         .sheet(isPresented: $showExchangeInfo) {
             ExchangeInfoView()
         }
         .onTapGesture {
             leftTyping = false
         }
-        .onAppear {
-            rightAmount = leftCurrency.convert(leftAmount, to: rightCurrency)
+        .task {
+            try? Tips.configure()
         }
     }
 }
