@@ -14,7 +14,7 @@ Technologies Used:
 	•	Background image (wooden texture) for thematic style
 
 **2. Currency Selection Screen**
-![alt text](https://github.com/Bardashevsky/LOTRConverter/blob/main/Screenshot%202025-04-17%20at%2020.05.41.png)
+<img src="https://github.com/Bardashevsky/LOTRConverter/blob/main/Screenshot%202025-04-17%20at%2020.05.41.png?raw=true" width="300"/>
 
 Description:
 Allows users to select which fantasy currency they’re starting with. Displays currency buttons in a 2-column grid with icons and labels.
@@ -27,7 +27,7 @@ Technologies Used:
 	•	State management with @State to track selected currency
 
 **3. Exchange Rates Screen**
-![alt text](https://github.com/Bardashevsky/LOTRConverter/blob/main/Screenshot%202025-04-17%20at%2020.05.48.png)
+<img src="https://github.com/Bardashevsky/LOTRConverter/blob/main/Screenshot%202025-04-17%20at%2020.05.48.png?raw=true" width="300"/>
 
 Description:
 Displays a list of fantasy currency conversion rates, styled with a parchment-like background and custom icons.
