@@ -1,5 +1,5 @@
 **1. Currency Converter Screen**
-![alt text](https://github.com/Bardashevsky/LOTRConverter/blob/main/Screenshot%202025-04-17%20at%2020.05.33.png?raw=true)
+<img src="https://github.com/Bardashevsky/LOTRConverter/blob/main/Screenshot%202025-04-17%20at%2020.05.33.png?raw=true" width="300"/>
 
 Description:
 Performs the actual conversion between the selected currencies. Users input values and instantly see the result.
