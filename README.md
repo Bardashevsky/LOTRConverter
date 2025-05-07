@@ -1,5 +1,5 @@
 **1. Currency Converter Screen**
-<img src="https://github.com/Bardashevsky/LOTRConverter/blob/main/Screenshot%202025-04-17%20at%2020.05.33.png?raw=true" width="300"/>
+<img src="https://github.com/Bardashevsky/LOTRConverter/blob/main/1.png?raw=true" width="300"/>
 
 Description:
 Performs the actual conversion between the selected currencies. Users input values and instantly see the result.
@@ -15,7 +15,7 @@ Performs the actual conversion between the selected currencies. Users input valu
 - Background image (wooden texture) for thematic style
 
 **2. Currency Selection Screen**
-<img src="https://github.com/Bardashevsky/LOTRConverter/blob/main/Screenshot%202025-04-17%20at%2020.05.41.png?raw=true" width="300"/>
+<img src="https://github.com/Bardashevsky/LOTRConverter/blob/main/2.png?raw=true" width="300"/>
 
 Description:
 Allows users to select which fantasy currency they’re starting with. Displays currency buttons in a 2-column grid with icons and labels.
@@ -29,7 +29,7 @@ Allows users to select which fantasy currency they’re starting with. Displays 
 - State management with `@State` to track selected currency
 
 **3. Exchange Rates Screen**
-<img src="https://github.com/Bardashevsky/LOTRConverter/blob/main/Screenshot%202025-04-17%20at%2020.05.48.png?raw=true" width="300"/>
+<img src="https://github.com/Bardashevsky/LOTRConverter/blob/main/3.png?raw=true" width="300"/>
 
 Description:
 Displays a list of fantasy currency conversion rates, styled with a parchment-like background and custom icons.
